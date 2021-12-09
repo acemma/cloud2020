@@ -1,0 +1,17 @@
+server:
+  port: 8006
+
+
+# 注册到consul
+spring:
+  application:
+    name: consul-provider-payment
+
+  cloud:
+    consul:
+      host: 192.168.255.10
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+        # 加上这个解决健康检查失败问题，不然默认是服务运行所在主机名
+        prefer-ip-address: true

@@ -1,0 +1,44 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-center
+
+  cloud:
+    config:
+      server:
+        git:
+          # github 地址
+#          uri: https://github.com/acemma/springcloud-config.git # https方式链接
+          uri: https://github.com/acemma/springcloud-config.git  # ssh方式链接
+          # 搜索目录
+          search-paths:
+            - springcloud-config
+#          password: password # 配合https方式链接所需的密码
+#          username: username # 配合https方式链接所需的用户名
+          strict-host-key-checking: false # 配合ssh方式链接所需的配置
+          ignore-local-ssh-settings: true # 配合ssh方式链接所需的配置
+
+      # 读取分支
+      label: main
+
+  # rabbitmq配置
+  rabbitmq:
+    host: 192.168.255.10
+    port: 5672
+    username: guest
+    password: guest
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+
+
+# 暴露bus刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'
